@@ -20,7 +20,8 @@ namespace SportsStore.Controllers
         public IActionResult Index(int productPage = 1) => View(
             new ProductListViewModel
             {
-                Products = repository.Products.OrderBy(p=>p.ProductID).Skip((productPage-1)*PageSize).Take(PageSize),
+                Products = repository.Products.OrderBy(p=>p.ProductID)
+                    .Skip((productPage-1)*PageSize).Take(PageSize),
                 PagingInfo = new PagingInfo
                 {
                     CurrentPage = productPage,
