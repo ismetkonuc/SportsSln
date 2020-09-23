@@ -34,6 +34,9 @@ namespace SportsStore
             });
 
             services.AddScoped<IStoreRepository, EfStoreRepository>();
+            services.AddRazorPages();
+            services.AddDistributedMemoryCache();
+            services.AddSession();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -47,6 +50,7 @@ namespace SportsStore
             app.UseStatusCodePages();
             app.UseRouting();
             app.UseStaticFiles();
+            app.UseSession();
 
             app.UseEndpoints(endpoints =>
             {
@@ -61,9 +65,11 @@ namespace SportsStore
 
                 endpoints.MapControllerRoute("pagination", "Products/Page{productPage}", new {Controller="Home", action="Index", productPage=1});
                 endpoints.MapDefaultControllerRoute();
+                endpoints.MapRazorPages();
             });
 
             SeedData.EnsurePopulated(app);
+
         }
     }
 }
